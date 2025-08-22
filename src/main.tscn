@@ -10,13 +10,13 @@ script = ExtResource("1_3cfgd")
 mob_scene = ExtResource("2_fyndt")
 
 [node name="Left_Wall" parent="." instance=ExtResource("2_gh0ne")]
-position = Vector2(0, 404)
+position = Vector2(0, 458)
 
 [node name="Right_Wall" parent="." instance=ExtResource("2_gh0ne")]
-position = Vector2(900, 395)
+position = Vector2(900, 458)
 
 [node name="Player" parent="." instance=ExtResource("1_eewff")]
-position = Vector2(430, 664)
+position = Vector2(430, 1144)
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
@@ -30,7 +30,7 @@ position = Vector2(424, -67)
 position = Vector2(659, -67)
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.5
 autostart = true
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
