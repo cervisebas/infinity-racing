@@ -1,15 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsuoo7nvlkoo1"]
+[gd_scene load_steps=5 format=3 uid="uid://bsuoo7nvlkoo1"]
 
+[ext_resource type="Script" uid="uid://boyue4x5mflv8" path="res://src/main.gd" id="1_3cfgd"]
 [ext_resource type="PackedScene" uid="uid://815k8dovw0hv" path="res://src/elements/car.tscn" id="1_eewff"]
+[ext_resource type="PackedScene" uid="uid://dhjhppqv6qli6" path="res://src/elements/enemy.tscn" id="2_fyndt"]
 [ext_resource type="PackedScene" uid="uid://c3cnxh8nbx6g0" path="res://src/elements/wall.tscn" id="2_gh0ne"]
 
-[sub_resource type="Curve2D" id="Curve2D_eewff"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 3, -1, 0, 0, 0, 0, 601, 0, 0, 0, 0, 0, 601, 800, 0, 0, 0, 0, 3, 800, 0, 0, 0, 0, 3, -1)
-}
-point_count = 5
-
 [node name="Main" type="Node2D"]
+script = ExtResource("1_3cfgd")
+mob_scene = ExtResource("2_fyndt")
 
 [node name="Left_Wall" parent="." instance=ExtResource("2_gh0ne")]
 position = Vector2(0, 404)
@@ -17,32 +15,22 @@ position = Vector2(0, 404)
 [node name="Right_Wall" parent="." instance=ExtResource("2_gh0ne")]
 position = Vector2(900, 395)
 
-[node name="StartPosition" type="Marker2D" parent="."]
-
 [node name="Player" parent="." instance=ExtResource("1_eewff")]
 position = Vector2(430, 664)
 
-[node name="MobPath" type="Path2D" parent="."]
-position = Vector2(92.4482, 0)
-scale = Vector2(1.18395, 1)
-curve = SubResource("Curve2D_eewff")
+[node name="SpawnPoints" type="Node2D" parent="."]
 
-[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
-position = Vector2(3, -1)
-rotation = 0.00167224
-
-[node name="Marker2D" type="Marker2D" parent="."]
+[node name="LeftMarker2D" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(189, -67)
 
-[node name="Marker2D" type="Marker2D" parent="Marker2D"]
-position = Vector2(235, 0)
+[node name="CenterMarker2D" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(424, -67)
 
-[node name="Marker2D" type="Marker2D" parent="Marker2D/Marker2D"]
-position = Vector2(235, 0)
-
-[node name="Marker2D2" type="Marker2D" parent="."]
-position = Vector2(235, 0)
+[node name="RightMarker2D" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(659, -67)
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 5.0
 autostart = true
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
