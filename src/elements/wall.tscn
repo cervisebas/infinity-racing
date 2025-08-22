@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://c3cnxh8nbx6g0"]
+
+[ext_resource type="Texture2D" uid="uid://c5l0sibncud2n" path="res://assets/grass/pasto.jpg" id="1_f8so7"]
+[ext_resource type="Texture2D" uid="uid://orrekctla8ge" path="res://assets/grass/Pasto 1.png" id="2_02khu"]
+[ext_resource type="Texture2D" uid="uid://hhccckb7mo1m" path="res://assets/grass/Pasto 2.png" id="3_xo8mg"]
+[ext_resource type="Texture2D" uid="uid://b3jdurljvqm8q" path="res://assets/grass/Pasto 3.png" id="4_8ubud"]
+[ext_resource type="Texture2D" uid="uid://dcg4ky6bswalw" path="res://assets/grass/Pasto 4.png" id="5_4e5l4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8so7"]
+size = Vector2(192, 916)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nyswu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_02khu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xo8mg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8ubud")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4e5l4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Wall" type="StaticBody2D" groups=["Estructura"]]
+
+[node name="Pasto" type="Sprite2D" parent="."]
+texture_repeat = 1
+scale = Vector2(0.0342857, 0.245111)
+texture = ExtResource("1_f8so7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f8so7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.90735e-06, -1)
+scale = Vector2(1.92, 9.12)
+sprite_frames = SubResource("SpriteFrames_nyswu")
+autoplay = "default"
+frame_progress = 0.11911

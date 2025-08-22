@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhjhppqv6qli6"]
+
+[ext_resource type="Script" uid="uid://rl8hjje8bwv3" path="res://src/elements/enemy.gd" id="1_d2ifq"]
+[ext_resource type="Texture2D" uid="uid://dlabo8xnlccgx" path="res://assets/auto.png" id="2_266am"]
+[ext_resource type="Texture2D" uid="uid://35g5aiqsnun2" path="res://assets/enemies/enemy1.png" id="3_0p0ph"]
+[ext_resource type="Texture2D" uid="uid://distheh07pbbr" path="res://assets/enemies/enemy2.png" id="4_3lotq"]
+[ext_resource type="Texture2D" uid="uid://de3uarychnqxx" path="res://assets/enemies/enemy3.png" id="5_6k12x"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y555b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_266am")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_0p0ph")
+}],
+"loop": true,
+"name": &"enemy1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_3lotq")
+}],
+"loop": true,
+"name": &"enemy2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_6k12x")
+}],
+"loop": true,
+"name": &"enemy3",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lycj0"]
+radius = 44.0
+height = 210.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_d2ifq")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 3.14159
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_y555b")
+animation = &"enemy3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_lycj0")

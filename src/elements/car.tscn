@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://815k8dovw0hv"]
+
+[ext_resource type="Script" uid="uid://bd0ufqohpojbb" path="res://src/elements/car.gd" id="1_xk1xv"]
+[ext_resource type="Texture2D" uid="uid://dlabo8xnlccgx" path="res://assets/auto.png" id="2_iun2r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y555b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_iun2r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lycj0"]
+radius = 44.0
+height = 210.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_xk1xv")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_y555b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_lycj0")
