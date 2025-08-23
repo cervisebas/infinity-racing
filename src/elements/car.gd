@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
-signal  hit
+signal hit
 
 @export var speed = 200
+@export var max_speed = 500
 @export var min_speed = 100
 var screen_size: Vector2
 
@@ -21,6 +22,17 @@ func _process(delta):
 	elif Input.is_action_pressed("move_left"):
 		velocity.x -= 1
 		speed += 7
+	
+	if Input.is_action_pressed("move_up"):
+		velocity.y -= 1
+		speed += 7
+	elif Input.is_action_pressed("move_down"):
+		velocity.y += 1
+		speed += 7
+	
+	if (speed > max_speed):
+		speed = max_speed
+	
 			
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
