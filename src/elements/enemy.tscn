@@ -45,7 +45,7 @@ animations = [{
 radius = 55.0
 height = 210.0
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["Enemigo"]]
 script = ExtResource("1_d2ifq")
 metadata/_edit_group_ = true
 

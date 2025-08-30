@@ -5,12 +5,18 @@ signal hit
 @export var speed = 200
 @export var max_speed = 500
 @export var min_speed = 100
+
+@export var running: bool
+
 var screen_size: Vector2
 
 func _ready():
 	screen_size = get_viewport_rect().size
 
 func _process(delta):
+	if (!running):
+		return
+	
 	if (speed > min_speed):
 		speed -= 5
 	
@@ -44,8 +50,11 @@ func _process(delta):
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		
-		if (collision.get_collider().is_in_group("Estructura")):
-			print("Choque con una estructura")
+		#if (collision.get_collider().is_in_group("Estructura")):
+		#	print("Choque con una estructura")
+			
+		if (collision.get_collider().is_in_group("Enemigo")):
+			hit.emit()
 	
 	position = position.clamp(Vector2.ZERO, screen_size)
 

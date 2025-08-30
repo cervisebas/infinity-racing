@@ -1,16 +1,25 @@
 extends Node
 
 @onready var spawn_points = $SpawnPoints.get_children()
+@onready var dead_screen = preload("res://src/ui/dead_screen.tscn")
 
 @onready var LM2D = $SpawnPoints/LeftMarker2D
 @onready var CM2D = $SpawnPoints/CenterMarker2D
 @onready var RM2D = $SpawnPoints/RightMarker2D
 
 @export var mob_scene: PackedScene
-var score
+#var score
+var running = true
+
+var dead_screen_instance: Node
+var player_start_position: Vector2
 
 func _ready():
 	print("start")
+	player_start_position = $Player.position
+	
+func _process(delta: float):
+	$Player.running = running
 
 @onready var markers = [
 	$LeftMarker2D,
@@ -30,6 +39,9 @@ func _ready():
 @onready var last_pattern = spawn_patterns[0]
 
 func _on_mob_timer_timeout():
+	if (!running):
+		return
+	
 	var use_pattern = spawn_patterns.pick_random()
 	
 	while (last_pattern == use_pattern):
@@ -46,5 +58,26 @@ func _on_mob_timer_timeout():
 		
 		enemy.speed = randi_range(100, 300)
 		
-		add_child(enemy)
+		$Enemies.add_child(enemy)
 		
+
+func restart():
+	running = true
+	$Player.position = player_start_position
+	$Enemies
+	
+	for enemy in $Enemies.get_children():
+		$Enemies.remove_child(enemy)
+
+	remove_child(dead_screen_instance)
+
+func _on_player_hit():
+	if (!running):
+		return
+	
+	running = false
+	dead_screen_instance = dead_screen.instantiate()
+	
+	add_child(dead_screen_instance)
+	
+	dead_screen_instance.restart.connect(restart)
