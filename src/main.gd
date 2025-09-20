@@ -11,6 +11,15 @@ extends Node
 #var score
 var running = true
 
+# Speed
+var speedScene = 200
+var minSpeedScene = 200
+var maxSpeedScene = 5100
+
+# Timers config
+var minMobTimerSpawn = 0.5
+var maxMobTimerSpawn = 5
+
 var dead_screen_instance: Node
 var player_start_position: Vector2
 
@@ -20,6 +29,26 @@ func _ready():
 	
 func _process(delta: float):
 	$Player.running = running
+	$Player.speed = speedScene
+	
+	$Asphalt.speed = speedScene
+	$Asphalt.minSpeed = minSpeedScene
+	$Asphalt.maxSpeed = maxSpeedScene
+	
+	var mobTimerSpawn = float(maxSpeedScene) / float(speedScene)
+	if (mobTimerSpawn < minMobTimerSpawn):
+		mobTimerSpawn = minMobTimerSpawn
+	elif (mobTimerSpawn > maxMobTimerSpawn):
+		mobTimerSpawn = maxMobTimerSpawn
+	
+	if ($MobTimer.wait_time != mobTimerSpawn):
+		$MobTimer.wait_time = mobTimerSpawn
+	
+	for enemy in $Enemies.get_children():
+		enemy.speed = speedScene / 2
+		
+	if Input.is_action_pressed("more_speed"):
+		increase_speed()
 
 @onready var markers = [
 	$LeftMarker2D,
@@ -63,8 +92,8 @@ func _on_mob_timer_timeout():
 
 func restart():
 	running = true
+	speedScene = minSpeedScene
 	$Player.position = player_start_position
-	$Enemies
 	
 	for enemy in $Enemies.get_children():
 		$Enemies.remove_child(enemy)
@@ -75,9 +104,24 @@ func _on_player_hit():
 	if (!running):
 		return
 	
+	if (speedScene > 1000):
+		speedScene = minSpeedScene
+		$Player.enable_temporal_transparent()
+		return
+	
 	running = false
 	dead_screen_instance = dead_screen.instantiate()
 	
 	add_child(dead_screen_instance)
 	
 	dead_screen_instance.restart.connect(restart)
+
+func increase_speed():
+	if (speedScene < maxSpeedScene):
+		speedScene = speedScene + 100;
+	
+	print(speedScene)
+	
+
+func _on_speed_timer_timeout():
+	increase_speed()

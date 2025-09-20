@@ -32,6 +32,7 @@ texture = ExtResource("5_kmhfv")
 
 [node name="Player" parent="." instance=ExtResource("1_eewff")]
 position = Vector2(430, 1144)
+maxSpeed = 800
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
@@ -44,6 +45,10 @@ position = Vector2(448, -67)
 [node name="RightMarker2D" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(675, -67)
 
+[node name="SpeedTimer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 2.8
 autostart = true
@@ -51,4 +56,5 @@ autostart = true
 [node name="Enemies" type="Node2D" parent="."]
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="timeout" from="SpeedTimer" to="." method="_on_speed_timer_timeout"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

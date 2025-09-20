@@ -3,8 +3,7 @@ extends CharacterBody2D
 signal hit
 
 @export var speed = 200
-@export var max_speed = 500
-@export var min_speed = 100
+@export var maxSpeed = 200
 
 @export var running: bool
 
@@ -17,31 +16,24 @@ func _process(delta):
 	if (!running):
 		return
 	
-	if (speed > min_speed):
-		speed -= 5
-	
 	var velocity = Vector2.ZERO
 	
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1
-		speed += 7
 	elif Input.is_action_pressed("move_left"):
 		velocity.x -= 1
-		speed += 7
 	
 	if Input.is_action_pressed("move_up"):
 		velocity.y -= 1
-		speed += 7
 	elif Input.is_action_pressed("move_down"):
 		velocity.y += 1
-		speed += 7
 	
-	if (speed > max_speed):
-		speed = max_speed
+	var _speed = speed
+	if (speed > maxSpeed):
+		_speed = maxSpeed
 	
-			
 	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
+		velocity = velocity.normalized() * _speed
 	
 	position += velocity * delta
 	
@@ -58,10 +50,19 @@ func _process(delta):
 	
 	position = position.clamp(Vector2.ZERO, screen_size)
 
-
+func enable_temporal_transparent():
+	collision_mask = 1
+	#$CollisionShape2D.disabled = true
+	$AnimatedSprite2D.modulate.a = 0.7
+	$TransparentTimer.start()
 
 func _on_body_entered(_body):
 	#hide()
 	hit.emit()
-	print("choque")
 	#$CollisionShape2D.set_deferred("disabled", true).
+
+
+func _on_transparent_timer_timeout():
+	collision_mask = 1 | 2
+	#$CollisionShape2D.disabled = false
+	$AnimatedSprite2D.modulate.a = 1

@@ -46,6 +46,8 @@ radius = 55.0
 height = 210.0
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemigo"]]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_d2ifq")
 metadata/_edit_group_ = true
 
@@ -62,6 +64,7 @@ position = Vector2(2.5, -0.499992)
 scale = Vector2(5.75, 10.65)
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
