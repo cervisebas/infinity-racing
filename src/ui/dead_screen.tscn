@@ -1,12 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://d4fbbrs60mn3l"]
 
 [ext_resource type="Script" uid="uid://bqqownqt06mfr" path="res://src/ui/dead_screen.gd" id="1_23ua7"]
+[ext_resource type="PackedScene" uid="uid://cr4yig1tr8ao1" path="res://src/elements/Button.tscn" id="2_ab78b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_23ua7"]
 font_size = 48
-
-[sub_resource type="LabelSettings" id="LabelSettings_ab78b"]
-font_size = 24
 
 [node name="DeadScreen" type="Node2D"]
 top_level = true
@@ -35,32 +33,8 @@ label_settings = SubResource("LabelSettings_23ua7")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Button" parent="." instance=ExtResource("2_ab78b")]
 position = Vector2(320, 704)
+label = "Reiniciar"
 
-[node name="Control" type="Control" parent="Node2D"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 256.0
-offset_bottom = 64.0
-
-[node name="ColorRect" type="ColorRect" parent="Node2D/Control"]
-layout_mode = 0
-offset_right = 256.0
-offset_bottom = 64.0
-color = Color(1, 0, 0, 1)
-
-[node name="Label" type="Label" parent="Node2D"]
-offset_right = 256.0
-offset_bottom = 64.0
-text = "Reiniciar"
-label_settings = SubResource("LabelSettings_ab78b")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="Node2D"]
-offset_right = 256.0
-offset_bottom = 64.0
-flat = true
-
-[connection signal="pressed" from="Node2D/Button" to="." method="_on_button_pressed"]
+[connection signal="_on_press" from="Button" to="." method="_on_button__on_press"]
