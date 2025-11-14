@@ -1,19 +1,21 @@
 extends ObstacleStrategy
 
-class_name CarEnemy
+class_name Enemy
 
-var sprites = [
+@export var sprites = [
 	"enemy1",
 	"enemy2",
 	"enemy3"
 ]
+@export var zIndex = 5
 var speed = 100
 
 func _ready():
 	$AnimatedSprite2D.animation = sprites.get(randi_range(0, 2))
+	$".".z_index = zIndex
 
 func _process(delta: float):
-	var velocity = Vector2.ZERO
+	velocity = Vector2.ZERO
 	velocity.y = speed
 	
 	position += velocity * delta

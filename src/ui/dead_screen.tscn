@@ -8,6 +8,7 @@ font_size = 48
 
 [node name="DeadScreen" type="Node2D"]
 top_level = true
+z_index = 20
 script = ExtResource("1_23ua7")
 
 [node name="Control" type="Control" parent="."]

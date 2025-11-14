@@ -11,12 +11,13 @@ var screen_size: Vector2
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	$".".z_index = 10
 
 func _process(delta):
 	if (!running):
 		return
 	
-	var velocity = Vector2.ZERO
+	velocity = Vector2.ZERO
 	
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1
@@ -42,9 +43,6 @@ func _process(delta):
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		
-		#if (collision.get_collider().is_in_group("Estructura")):
-		#	print("Choque con una estructura")
-			
 		if (collision.get_collider().is_in_group("Enemigo")):
 			hit.emit()
 	
@@ -52,15 +50,11 @@ func _process(delta):
 
 func enable_temporal_transparent():
 	collision_mask = 1
-	#$CollisionShape2D.disabled = true
 	$AnimatedSprite2D.modulate.a = 0.7
 	$TransparentTimer.start()
 
 func _on_body_entered(_body):
-	#hide()
 	hit.emit()
-	#$CollisionShape2D.set_deferred("disabled", true).
-
 
 func _on_transparent_timer_timeout():
 	collision_mask = 1 | 2

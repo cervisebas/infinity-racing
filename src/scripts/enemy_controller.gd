@@ -32,6 +32,7 @@ var markers = [
 # Enemies
 var Enemies = [
 	preload("res://src/elements/car_enemy.tscn"),
+	preload("res://src/elements/bache_enemy.tscn"),
 ]
 
 var last_pattern = EnemySpawnPatterns.Patterns[0]

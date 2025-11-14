@@ -1,0 +1,93 @@
+[gd_scene load_steps=10 format=3 uid="uid://75suy3xvtte"]
+
+[ext_resource type="Script" uid="uid://rl8hjje8bwv3" path="res://src/elements/simple_enemy.gd" id="1_ltqxr"]
+[ext_resource type="Texture2D" uid="uid://e1sfrgt33grm" path="res://assets/baches/bache1.png" id="2_22j6w"]
+[ext_resource type="Texture2D" uid="uid://c62723u56dlbj" path="res://assets/baches/bache2.png" id="3_ecoby"]
+[ext_resource type="Texture2D" uid="uid://dcc0em87cj5jf" path="res://assets/baches/bache3.png" id="4_rslln"]
+[ext_resource type="Texture2D" uid="uid://fkqw2l562jxr" path="res://assets/baches/bache4.png" id="5_r25ly"]
+[ext_resource type="Texture2D" uid="uid://c0d57sqtvjl74" path="res://assets/baches/bache5.png" id="6_cc81g"]
+[ext_resource type="Texture2D" uid="uid://dhr4eg1jl4nt2" path="res://assets/baches/bache6.png" id="7_q1mmq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y555b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_22j6w")
+}],
+"loop": true,
+"name": &"bache1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ecoby")
+}],
+"loop": true,
+"name": &"bache2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_rslln")
+}],
+"loop": true,
+"name": &"bache3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_r25ly")
+}],
+"loop": true,
+"name": &"bache4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_cc81g")
+}],
+"loop": true,
+"name": &"bache5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_q1mmq")
+}],
+"loop": true,
+"name": &"bache6",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lycj0"]
+radius = 82.0
+height = 164.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemigo"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_ltqxr")
+sprites = ["bache1", "bache2", "bache3", "bache4", "bache5", "bache6"]
+zIndex = 9
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.5000038, -2.861023e-06)
+scale = Vector2(0.5082644, 0.4957983)
+sprite_frames = SubResource("SpriteFrames_y555b")
+animation = &"bache6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_lycj0")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2.5, -0.499992)
+scale = Vector2(5.75, 10.65)
+rect = Rect2(-14.695653, -7.652583, 28.52174, 15.399061)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
