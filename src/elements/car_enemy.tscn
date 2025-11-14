@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dhjhppqv6qli6"]
 
-[ext_resource type="Script" uid="uid://rl8hjje8bwv3" path="res://src/elements/enemy.gd" id="1_d2ifq"]
+[ext_resource type="Script" uid="uid://rl8hjje8bwv3" path="res://src/elements/car_enemy.gd" id="1_d2ifq"]
 [ext_resource type="Texture2D" uid="uid://dlabo8xnlccgx" path="res://assets/auto.png" id="2_266am"]
 [ext_resource type="Texture2D" uid="uid://35g5aiqsnun2" path="res://assets/enemies/enemy1.png" id="3_0p0ph"]
 [ext_resource type="Texture2D" uid="uid://distheh07pbbr" path="res://assets/enemies/enemy2.png" id="4_3lotq"]

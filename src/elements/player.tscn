@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://815k8dovw0hv"]
 
-[ext_resource type="Script" uid="uid://bd0ufqohpojbb" path="res://src/elements/car.gd" id="1_xk1xv"]
+[ext_resource type="Script" uid="uid://bd0ufqohpojbb" path="res://src/elements/player.gd" id="1_xk1xv"]
 [ext_resource type="Texture2D" uid="uid://dlabo8xnlccgx" path="res://assets/auto.png" id="2_iun2r"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y555b"]
