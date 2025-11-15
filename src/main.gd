@@ -1,72 +1,26 @@
-extends Node
+extends Node2D
 
-# Scenes
-@onready
-var dead_screen = preload("res://src/ui/dead_screen.tscn")
+const game_asset = preload("res://src/game/game.tscn")
+const menu_asset = preload("res://src/menu/menu.tscn")
 
-# Game
-var running = true
+func _ready() -> void:
+	append_menu()
 
-var dead_screen_instance: Node
-var player_start_position: Vector2
+func append_menu():
+	clear_main()
+	var _menu = menu_asset.instantiate()
+	_menu.connect("start_game", append_game)
+	
+	$".".add_child(_menu)
 
-# Speed
-var speedScene = 200
-var minSpeedScene = 200
-var maxSpeedScene = 5100
+func append_game():
+	clear_main()
+	var _game = game_asset.instantiate()
+	
+	$".".add_child(_game)
 
-# Timers config
-var minMobTimerSpawn = 0.5
-var maxMobTimerSpawn = 5
-
-func _ready():
-	player_start_position = $Player.position
+func clear_main():
+	var childs = $".".get_children()
 	
-func _process(_delta: float):
-	$Player.running = running
-	$Player.speed = speedScene
-	
-	$Score.running = running
-	
-	$BackgroundScene.set_speeds(speedScene, minSpeedScene, maxSpeedScene)
-	$EnemyController.set_speeds(speedScene, minSpeedScene, maxSpeedScene)
-	
-	if Input.is_action_pressed("more_speed"):
-		increase_speed()
-
-func restart():
-	$Score.save_score()
-	$Score.reset()
-	
-	running = true
-	speedScene = minSpeedScene
-	$Player.position = player_start_position
-	$EnemyController.clear_enemies()
-
-	remove_child(dead_screen_instance)
-
-func _on_player_hit(element: ObstacleStrategy):
-	if (!running):
-		return
-	
-	if (speedScene > 1000 && (!element || !element.insta_kill())):
-		speedScene = minSpeedScene
-		$Player.enable_temporal_transparent()
-		return
-	
-	running = false
-	dead_screen_instance = dead_screen.instantiate()
-	
-	add_child(dead_screen_instance)
-	
-	dead_screen_instance.restart.connect(restart)
-
-func increase_speed():
-	if (speedScene < maxSpeedScene):
-		speedScene = speedScene + 100;
-	
-	print(speedScene)
-	
-
-func _on_speed_timer_timeout():
-	increase_speed()
+	for child in childs:
+		$".".remove_child(child)

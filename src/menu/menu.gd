@@ -1,7 +1,7 @@
 extends Node2D
 
+signal start_game
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var score = GameStorage.new().get_score()
 	
@@ -11,3 +11,7 @@ func _ready() -> void:
 		
 	else:
 		$Label.visible = false
+
+
+func _on_button__on_press() -> void:
+	start_game.emit()

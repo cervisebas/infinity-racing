@@ -28,3 +28,5 @@ text = "Ultimo Score: 0"
 label_settings = SubResource("LabelSettings_sblgy")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="_on_press" from="Button" to="." method="_on_button__on_press"]
