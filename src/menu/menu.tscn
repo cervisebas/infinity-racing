@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwndr6snuh4wu"]
+[gd_scene load_steps=6 format=3 uid="uid://bwndr6snuh4wu"]
 
 [ext_resource type="Texture2D" uid="uid://bth71efsn4q7p" path="res://assets/ui/menu.png" id="1_45w1x"]
 [ext_resource type="Script" uid="uid://dopmiujyhtni2" path="res://src/menu/menu.gd" id="1_56xr1"]
@@ -6,6 +6,10 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_sblgy"]
 font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_56xr1"]
+font_size = 22
+shadow_color = Color(0, 0, 0, 0.3882353)
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_56xr1")
@@ -28,5 +32,13 @@ text = "Ultimo Score: 0"
 label_settings = SubResource("LabelSettings_sblgy")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_top = 823.0
+offset_right = 899.0
+offset_bottom = 851.0
+text = "¡Llega lo más lejos y supera tu record!"
+label_settings = SubResource("LabelSettings_56xr1")
+horizontal_alignment = 1
 
 [connection signal="_on_press" from="Button" to="." method="_on_button__on_press"]
