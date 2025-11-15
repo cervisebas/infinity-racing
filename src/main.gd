@@ -26,6 +26,8 @@ func _process(_delta: float):
 	$Player.running = running
 	$Player.speed = speedScene
 	
+	$Score.running = running
+	
 	$BackgroundScene.set_speeds(speedScene, minSpeedScene, maxSpeedScene)
 	$EnemyController.set_speeds(speedScene, minSpeedScene, maxSpeedScene)
 	
@@ -33,6 +35,9 @@ func _process(_delta: float):
 		increase_speed()
 
 func restart():
+	$Score.save_score()
+	$Score.reset()
+	
 	running = true
 	speedScene = minSpeedScene
 	$Player.position = player_start_position
