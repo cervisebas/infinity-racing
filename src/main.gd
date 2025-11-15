@@ -40,11 +40,11 @@ func restart():
 
 	remove_child(dead_screen_instance)
 
-func _on_player_hit():
+func _on_player_hit(element: ObstacleStrategy):
 	if (!running):
 		return
 	
-	if (speedScene > 1000):
+	if (speedScene > 1000 && (!element || !element.insta_kill())):
 		speedScene = minSpeedScene
 		$Player.enable_temporal_transparent()
 		return

@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal hit
+signal hit(enemy: ObstacleStrategy)
 
 @export var speed = 200
 @export var maxSpeed = 200
@@ -42,9 +42,10 @@ func _process(delta):
 	
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
+		var element = (collision.get_collider() as ObstacleStrategy)
 		
 		if (collision.get_collider().is_in_group("Enemigo")):
-			hit.emit()
+			hit.emit(element)
 	
 	position = position.clamp(Vector2.ZERO, screen_size)
 
@@ -52,9 +53,6 @@ func enable_temporal_transparent():
 	collision_mask = 1
 	$AnimatedSprite2D.modulate.a = 0.7
 	$TransparentTimer.start()
-
-func _on_body_entered(_body):
-	hit.emit()
 
 func _on_transparent_timer_timeout():
 	collision_mask = 1 | 2

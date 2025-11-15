@@ -8,10 +8,12 @@ class_name Enemy
 	"enemy3"
 ]
 @export var zIndex = 5
+@export var instaKill = false
 var speed = 100
 
 func _ready():
-	$AnimatedSprite2D.animation = sprites.get(randi_range(0, 2))
+	if ($AnimatedSprite2D):
+		$AnimatedSprite2D.animation = sprites.get(randi_range(0, 2))
 	$".".z_index = zIndex
 
 func _process(delta: float):
@@ -28,7 +30,7 @@ func _on_timer_timeout():
 	speed *= 1.2
 
 func insta_kill() -> bool:
-	return false
+	return instaKill
 	
 func set_speed(v: float) -> void:
 	speed = v

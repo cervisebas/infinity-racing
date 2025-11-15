@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp0ykcjp37sqe"]
+
+[ext_resource type="Script" uid="uid://rl8hjje8bwv3" path="res://src/elements/simple_enemy.gd" id="1_h70b4"]
+[ext_resource type="Texture2D" uid="uid://7dxm645pp3sk" path="res://assets/street_obstacles/without_street.png" id="2_h70b4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1q4j"]
+size = Vector2(239, 135)
+
+[node name="StopWallEnemy" type="CharacterBody2D" groups=["Enemigo"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_h70b4")
+sprites = []
+zIndex = 9
+instaKill = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2.4999943)
+scale = Vector2(0.19916667, 0.22500002)
+texture = ExtResource("2_h70b4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -2.5)
+shape = SubResource("RectangleShape2D_b1q4j")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2.5, -0.499992)
+scale = Vector2(5.75, 10.65)
+rect = Rect2(-21.304348, -6.5258226, 41.739132, 12.676057)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
