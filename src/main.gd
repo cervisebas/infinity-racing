@@ -16,6 +16,7 @@ func append_menu():
 func append_game():
 	clear_main()
 	var _game = game_asset.instantiate()
+	_game.connect("exit_game", append_menu)
 	
 	$".".add_child(_game)
 

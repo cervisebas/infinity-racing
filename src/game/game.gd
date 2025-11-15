@@ -1,5 +1,7 @@
 extends Node
 
+signal exit_game
+
 # Scenes
 @onready
 var dead_screen = preload("res://src/ui/dead_screen.tscn")
@@ -70,3 +72,7 @@ func increase_speed():
 
 func _on_speed_timer_timeout():
 	increase_speed()
+
+
+func _on_button_pressed() -> void:
+	exit_game.emit()
